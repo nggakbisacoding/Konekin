@@ -24,16 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         val client = ApiClient.getInstance()
         val response = client.getAllUsers()
+        val response2 = client.groupList(2)
         val userList = ArrayList<String>()
         val dataList = ArrayList<String>()
+        val genderList = ArrayList<String>()
+        val statusList = ArrayList<String>()
+        val imageList = ArrayList<String>()
         response.enqueue(object : Callback<Users> {
             override fun onResponse(call: Call<Users>, response: Response<Users>) {
                 for( i in response.body()?.data!!) {
                     userList.add(i.nameApi)
                     dataList.add(i.speciesType)
-                    dataList.add(i.speciesGender)
-                    dataList.add(i.statusApi)
-                    dataList.add(i.speciesImage)
+                    genderList.add(i.speciesGender)
+                    statusList.add(i.statusApi)
+                    imageList.add(i.speciesImage)
                     val listAdapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_list_item_1, userList)
                     binding.lvNama.adapter = listAdapter
                 }
@@ -46,10 +50,11 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             lvNama.setOnItemClickListener { _, _, arg2, _ ->
                 val intenttoDetailActivity = Intent(this@MainActivity, DetailActivity::class.java)
-                intenttoDetailActivity.putExtra("name", dataList[arg2])
+                intenttoDetailActivity.putExtra("name", userList[arg2])
                 intenttoDetailActivity.putExtra("type", dataList[arg2])
-                intenttoDetailActivity.putExtra("status", dataList[arg2*2])
-                intenttoDetailActivity.putExtra("image", dataList[arg2*3])
+                intenttoDetailActivity.putExtra("gender", genderList[arg2])
+                intenttoDetailActivity.putExtra("status", statusList[arg2])
+                intenttoDetailActivity.putExtra("image", imageList[arg2])
                 startActivity(intenttoDetailActivity)
             }
         }
