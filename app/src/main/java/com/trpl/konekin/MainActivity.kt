@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         val client = ApiClient.getInstance()
         val response = client.getAllUsers()
-        val response2 = client.groupList(2)
         val userList = ArrayList<String>()
         val dataList = ArrayList<String>()
         val genderList = ArrayList<String>()

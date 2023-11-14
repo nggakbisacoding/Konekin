@@ -8,6 +8,4 @@ import retrofit2.http.Path
 interface ApiService {
     @GET("character")
     fun getAllUsers(): Call<Users>
-    @GET("character?page={id}")
-    fun groupList(@Path("id") groupId: Int): Call<Users>
 }
